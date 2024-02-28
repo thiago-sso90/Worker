@@ -10,13 +10,14 @@ namespace WorkerServiceTreinamento
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
+        private readonly ServiceData _serviceData;
         private readonly IdbConnection _db;
 
 
-        public Worker(ILogger<Worker> logger, IdbConnection service)
+        public Worker(ILogger<Worker> logger, ServiceData serviceData)
         {
             _logger = logger;
-            _db = service;
+            _serviceData = serviceData;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -27,19 +28,14 @@ namespace WorkerServiceTreinamento
 
                 try
                 {
-                    var querry = ScriptDate.AtualizarDatas;
-                    using (IDbConnection connection = _db.ConnectionDBase)
-                    {
-                        var result = await connection.QueryAsync<ArquivoModel>(querry);
-
-                        var resultado = result;
-                    }
+                    await _serviceData.ProcessarDadosAsync();
+                
                 }catch (Exception ex)
                 {
                     throw ex;
                 }
 
-                await Task.Delay(TimeSpan.FromMinutes(2), stoppingToken);
+                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
             }
         }
     }

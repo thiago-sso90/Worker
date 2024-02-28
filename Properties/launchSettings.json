@@ -4,8 +4,12 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "environmentVariables": {
-        "DOTNET_ENVIRONMENT": "Development"
-        
+        "DOTNET_ENVIRONMENT": "Development",
+        "COSMOS_HOST": "ANDROMEDA2",
+        "COSMOS_PORT": "1433",
+        "COSMOS_DB": "INT_ADP",
+        "COSMOS_USER": "SYSCOSMOS",
+        "COSMOS_PASS": "COSMOS"
       }
     }
   }
